@@ -8,10 +8,11 @@ function datef() {
 
 function createConfig() {
     cd "$APP_PERSIST_DIR"
-    CLIENT_ID="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)"
+    # CLIENT_ID="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)"
+    CLIENT_ID="$1"
     CLIENT_PATH="$APP_PERSIST_DIR/clients/$CLIENT_ID"
 
-    echo "ifconfig-push $1 255.255.255.255" > /opt/Dockovpn_data/ccd/$CLIENT_ID
+    echo "ifconfig-push 10.8.0.$2 255.255.255.255" > /opt/Dockovpn_data/ccd/$CLIENT_ID
 
     # Redirect stderr to the black hole
     easyrsa build-client-full "$CLIENT_ID" nopass &> /dev/null

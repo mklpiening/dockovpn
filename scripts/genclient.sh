@@ -2,7 +2,13 @@
 
 source ./functions.sh
 
-CLIENT_PATH="$(createConfig $1)"
+if (($# < 2))
+then
+    echo "$(datef) Not enough arguments" && exit 1
+    exit
+fi
+
+CLIENT_PATH="$(createConfig $1 $2)"
 CONTENT_TYPE=application/text
 FILE_NAME=client.ovpn
 FILE_PATH="$CLIENT_PATH/$FILE_NAME"
