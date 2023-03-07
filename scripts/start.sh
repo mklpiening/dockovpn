@@ -27,6 +27,8 @@ iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o $ADAPTER -j MASQUERADE
 
 cd "$APP_PERSIST_DIR"
 
+mkdir -p /opt/Dockovpn_data/ccd
+
 LOCKFILE=.gen
 
 # Regenerate certs only on the first start 
@@ -72,12 +74,12 @@ $APP_INSTALL_PATH/version.sh
 # Need to feed key password
 openvpn --config /etc/openvpn/server.conf &
 
-if [[ -n $IS_INITIAL ]]; then
-    # By some strange reason we need to do echo command to get to the next command
-    echo " "
-
-    # Generate client config
-    ./genclient.sh $@
-fi
+# if [[ -n $IS_INITIAL ]]; then
+#     # By some strange reason we need to do echo command to get to the next command
+#     echo " "
+# 
+#     # Generate client config
+#     ./genclient.sh $@
+# fi
 
 tail -f /dev/null
